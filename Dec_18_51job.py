@@ -11,7 +11,7 @@ writer = csv.writer(fp)
 writer.writerow(('职位','薪资','公司','公司信息','公司地址','地区','工作经验','学历','人数','时间','岗位信息'))
 
 def parseInfo(url):
-    res = requests.get(url)
+    # res = requests.get(url)
     # 移动适配
     # u = re.findall('<meta name="mobile-agent" content="format=html5;(.*?)">', res.text)
     #               <meta name="mobile-agent" content="format=html5;https://m.51job.com/search/jobdetail.php?jobid=109087803">
@@ -45,8 +45,8 @@ def getUrl(url):
     res = requests.get(url)
     res.encoding = 'GBK'
     #print(res.text)
-    selector = etree.HTML(res.text)
     if res.status_code == requests.codes.ok:
+        selector = etree.HTML(res.text)
         urls = selector.xpath('//*[@id="resultList"]/div/p/span/a/@href')
         #                      //*[@id="resultList"]/div/p/span/a
         print(urls)
@@ -56,7 +56,7 @@ def getUrl(url):
 
 
 if __name__ == '__main__':
-    key = '大数据'
+    key = '数据开发'
     # 第一页
     url = 'https://search.51job.com/list/000000,000000,0000,00,9,99,'+key+',2,1.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
     getUrl(url)
